@@ -7,8 +7,18 @@ export default async function NewServiceRequestPage() {
 
   return (
     <div className="flex flex-col gap-6 p-8">
-      <PageHeader eyebrow="New Ticket" title="Service" accentWord="Request" />
-      <ServiceRequestCreateForm assignableUsers={assignableUsers} />
+      <PageHeader
+        breadcrumb={[
+          { label: "Tickets", href: "/tickets" },
+          { label: "New", href: "/tickets/new" },
+          { label: "Service Request" },
+        ]}
+        title="Service"
+        accentWord="Request"
+      />
+      <div className="rounded-xl border border-border bg-surface-base p-6 shadow-sm">
+        <ServiceRequestCreateForm assignableUsers={assignableUsers} />
+      </div>
     </div>
   );
 }

@@ -1,12 +1,15 @@
 import type { ReactNode } from "react";
+import { Breadcrumbs, type Crumb } from "@/components/ui/breadcrumbs";
 
 export function PageHeader({
+  breadcrumb,
   eyebrow,
   title,
   accentWord,
   subtitle,
   actions,
 }: {
+  breadcrumb?: Crumb[];
   eyebrow?: string;
   title: string;
   accentWord?: string;
@@ -14,7 +17,8 @@ export function PageHeader({
   actions?: ReactNode;
 }) {
   return (
-    <header className="flex flex-col gap-3 border-b border-border pb-6">
+    <header className="flex flex-col gap-3 pb-2">
+      {breadcrumb && <Breadcrumbs items={breadcrumb} />}
       <div className="flex items-start justify-between gap-4">
         <div className="flex flex-col gap-3">
           {eyebrow && (

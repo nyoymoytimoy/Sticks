@@ -15,12 +15,19 @@ const columns: Column<TicketListRow>[] = [
   { key: "assigneeName", header: "Assignee", render: (r) => r.assigneeName ?? "—" },
 ];
 
-export function TicketsDataTable({ tickets }: { tickets: TicketListRow[] }) {
+export function TicketsDataTable({
+  tickets,
+  initialSearch,
+}: {
+  tickets: TicketListRow[];
+  initialSearch?: string;
+}) {
   const router = useRouter();
   return (
     <DataTable
       columns={columns}
       data={tickets}
+      initialSearch={initialSearch}
       onRowClick={(row) => router.push(`/tickets/${row.id}`)}
       emptyTitle="No tickets yet"
       emptyDescription="Create your first ticket to get started."

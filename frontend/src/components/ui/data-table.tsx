@@ -29,6 +29,7 @@ export function DataTable<T>({
   onRowClick,
   emptyTitle = "No results",
   emptyDescription,
+  initialSearch = "",
 }: {
   columns: Column<T>[];
   data: T[];
@@ -38,8 +39,10 @@ export function DataTable<T>({
   onRowClick?: (row: T) => void;
   emptyTitle?: string;
   emptyDescription?: string;
+  /** Pre-fills the search box, e.g. from the top bar's ?q= navigation. */
+  initialSearch?: string;
 }) {
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState(initialSearch);
   const [matchMode, setMatchMode] = useState<MatchMode>("contains");
   const [pageSize, setPageSize] = useState(defaultPageSize);
   const [page, setPage] = useState(1);

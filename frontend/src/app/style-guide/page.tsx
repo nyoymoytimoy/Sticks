@@ -8,6 +8,7 @@ import { EmptyState } from "@/components/ui/empty-state";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { DataTable, type Column } from "@/components/ui/data-table";
 import { AuditTimeline } from "@/components/ui/audit-timeline";
+import { Breadcrumbs } from "@/components/ui/breadcrumbs";
 import { useToast } from "@/components/ui/toast";
 
 const STATUSES = [
@@ -52,12 +53,18 @@ export default function StyleGuidePage() {
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-10 p-8">
       <PageHeader
+        breadcrumb={[{ label: "Design System" }, { label: "Style Guide" }]}
         eyebrow="Design System"
         title="Sticks"
         accentWord="Style Guide"
         subtitle="Every base component in one place, styled with the Audit V4 token set."
         actions={<ToastDemoButton />}
       />
+
+      <section className="flex flex-col gap-3">
+        <h2 className="text-sm font-bold uppercase tracking-wide text-teal">Breadcrumbs</h2>
+        <Breadcrumbs items={[{ label: "Tickets", href: "/tickets" }, { label: "TCK-2026-000001" }]} />
+      </section>
 
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-bold uppercase tracking-wide text-teal">Buttons</h2>
@@ -84,9 +91,16 @@ export default function StyleGuidePage() {
       <section className="flex flex-col gap-3">
         <h2 className="text-sm font-bold uppercase tracking-wide text-teal">Stat cards</h2>
         <div className="grid grid-cols-3 gap-4">
-          <StatCard label="Open Tickets" value={42} sublabel="+3 this week" />
-          <StatCard label="DB Fix Backlog — Leiva Morente" value={5} tone="warning" sublabel="oldest: 4d" />
-          <StatCard label="Declined" value={2} tone="error" />
+          <StatCard icon="ticket" chipTone="gold" label="Open Tickets" value={42} sublabel="+3 this week" />
+          <StatCard
+            icon="warning"
+            chipTone="warning"
+            label="DB Fix Backlog — Leiva Morente"
+            value={5}
+            tone="warning"
+            sublabel="oldest: 4d"
+          />
+          <StatCard icon="error" chipTone="error" label="Declined" value={2} tone="error" />
         </div>
       </section>
 

@@ -8,10 +8,10 @@ export default async function DashboardPage() {
   return (
     <div className="flex flex-col gap-6 p-8">
       <PageHeader
-        eyebrow="Dashboard"
+        breadcrumb={[{ label: "Dashboard" }]}
         title="Welcome,"
         accentWord={session?.user.name ?? ""}
-        subtitle="KPIs, aging/SLA, and approval-backlog widgets land in spec 015."
+        subtitle="KPIs, aging/SLA, and approval-backlog widgets land in spec 016."
       />
     </div>
   );

@@ -16,12 +16,14 @@ export default async function AdminAuditPage() {
   return (
     <div className="flex flex-col gap-6 p-8">
       <PageHeader
-        eyebrow="Admin"
+        breadcrumb={[{ label: "Admin" }, { label: "Audit" }]}
         title="Audit"
         accentWord="Trail"
         subtitle="Every status, assignment, and tag change across every ticket, most recent first."
       />
-      <AuditDataTable events={events} />
+      <div className="rounded-xl border border-border bg-surface-base p-5 shadow-sm">
+        <AuditDataTable events={events} />
+      </div>
     </div>
   );
 }

@@ -51,17 +51,18 @@ canonical roadmap this project follows is:
 4. Auth & RBAC
 5. Audit trail
 6. Ticket core CRUD
-7. Workflow — Database Fix Request
-8. Workflow — Mass Request
-9. Workflow — BCP Whitelisting
-10. Workflow — Incident Report
-11. Workflow — Service Request
-12. Comments, watchers & attachments
-13. Approver delegation & escalation
-14. Notifications
-15. Dashboard & reporting
-16. Reports export
-17. Cross-cutting Playwright e2e
+7. UI overhaul (visual redesign, same gold/teal token set, modernized login)
+8. Workflow — Database Fix Request
+9. Workflow — Mass Request
+10. Workflow — BCP Whitelisting
+11. Workflow — Incident Report
+12. Workflow — Service Request
+13. Comments, watchers & attachments
+14. Approver delegation & escalation
+15. Notifications
+16. Dashboard & reporting
+17. Reports export
+18. Cross-cutting Playwright e2e
 
 ## Testing
 

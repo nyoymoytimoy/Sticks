@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth/authOptions";
 import { canAccessPage } from "backend";
 import { Sidebar, type NavSection } from "@/components/ui/sidebar";
-import { SignOutButton } from "@/components/ui/sign-out-button";
+import { Topbar } from "@/components/ui/topbar";
 
 export default async function ProtectedLayout({
   children,
@@ -49,16 +49,11 @@ export default async function ProtectedLayout({
   ];
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen bg-surface-secondary">
       <Sidebar sections={sections} />
       <div className="flex flex-1 flex-col">
-        <header className="flex items-center justify-between border-b border-border bg-surface-base px-6 py-3">
-          <span className="text-sm text-ink-500">
-            Signed in as <span className="font-medium text-ink-900">{session.user.name}</span>
-          </span>
-          <SignOutButton />
-        </header>
-        <main className="flex-1">{children}</main>
+        <Topbar userName={session.user.name} />
+        <main className="flex-1 bg-surface-secondary">{children}</main>
       </div>
     </div>
   );
