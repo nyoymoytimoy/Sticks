@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Ticket, FileBarChart, Users } from "lucide-react";
+import { LayoutDashboard, Ticket, FileBarChart, Users, History } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // Icons are referenced by name (a serializable string), not passed as
@@ -14,6 +14,7 @@ const ICONS = {
   tickets: Ticket,
   reports: FileBarChart,
   users: Users,
+  audit: History,
 } as const;
 
 export type IconName = keyof typeof ICONS;

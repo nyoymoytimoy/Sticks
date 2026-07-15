@@ -10,7 +10,7 @@ export function hasRole(storedRoles: string[], role: RoleCode): boolean {
   return storedRoles.includes(role);
 }
 
-type Page = "dashboard" | "tickets" | "reports" | "adminUsers";
+type Page = "dashboard" | "tickets" | "reports" | "adminUsers" | "adminAudit";
 
 /**
  * Page-level visibility only (spec 004's scope). Per-ticket, per-transition
@@ -24,6 +24,7 @@ const PAGE_ACCESS: Record<Page, RoleCode[]> = {
   tickets: ["requestor", "approver", "admin", "associate"],
   reports: ["approver", "admin"],
   adminUsers: ["admin"],
+  adminAudit: ["admin"],
 };
 
 export function canAccessPage(storedRoles: string[], page: Page): boolean {

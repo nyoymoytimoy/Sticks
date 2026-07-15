@@ -31,11 +31,18 @@ export default async function ProtectedLayout({
           : []),
       ],
     },
-    ...(canAccessPage(roles, "adminUsers")
+    ...(canAccessPage(roles, "adminUsers") || canAccessPage(roles, "adminAudit")
       ? [
           {
             title: "Admin",
-            items: [{ href: "/admin/users", label: "Users", icon: "users" as const }],
+            items: [
+              ...(canAccessPage(roles, "adminUsers")
+                ? [{ href: "/admin/users", label: "Users", icon: "users" as const }]
+                : []),
+              ...(canAccessPage(roles, "adminAudit")
+                ? [{ href: "/admin/audit", label: "Audit", icon: "audit" as const }]
+                : []),
+            ],
           },
         ]
       : []),

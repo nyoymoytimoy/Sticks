@@ -1,6 +1,10 @@
 export { pool } from "./db/pool";
 export { getUserForLogin } from "./db/queries/users";
 export type { AuthenticatedUser } from "./db/queries/users";
+export { getRecentAuditEvents, getAuditEventsForTicket } from "./db/queries/audit";
+export type { AuditLogRow } from "./db/queries/audit";
+export { recordAuditEvent } from "./audit/recordAuditEvent";
+export type { AuditEventType, RecordAuditEventInput } from "./audit/recordAuditEvent";
 export { hashPassword, verifyPassword } from "./auth/password";
 export { hasRole, canAccessPage } from "./rbac/can";
 export type { RoleCode } from "./rbac/can";
