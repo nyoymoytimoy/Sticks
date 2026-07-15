@@ -2,13 +2,26 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { ComponentType } from "react";
+import { LayoutDashboard, Ticket, FileBarChart, Users } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+// Icons are referenced by name (a serializable string), not passed as
+// component references, because this file is a Client Component and the
+// nav sections are built server-side (in the protected layout) -- React
+// can't serialize a function/component reference across that boundary.
+const ICONS = {
+  dashboard: LayoutDashboard,
+  tickets: Ticket,
+  reports: FileBarChart,
+  users: Users,
+} as const;
+
+export type IconName = keyof typeof ICONS;
 
 export type NavItem = {
   href: string;
   label: string;
-  icon?: ComponentType<{ className?: string }>;
+  icon?: IconName;
 };
 
 export type NavSection = {
@@ -34,7 +47,7 @@ export function Sidebar({ sections }: { sections: NavSection[] }) {
             )}
             {section.items.map((item) => {
               const active = pathname === item.href;
-              const Icon = item.icon;
+              const Icon = item.icon ? ICONS[item.icon] : null;
               return (
                 <Link
                   key={item.href}
