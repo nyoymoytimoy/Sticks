@@ -33,8 +33,8 @@ test.describe("ticket core CRUD", () => {
     await expect(page).toHaveURL(/\/tickets\/new\/service_request/);
 
     await page.getByLabel("Title").fill("Playwright e2e: laptop request");
-    await page.getByLabel("Category").fill("Hardware");
-    await page.getByLabel("Assign to").selectOption({ label: "Demo Associate" });
+    await page.getByLabel("What type of service do you need?").fill("Hardware");
+    await page.getByLabel("Who should handle this?").selectOption({ label: "Demo Associate" });
     await page.getByRole("button", { name: "Create Service Request" }).click();
 
     await expect(page).toHaveURL(/\/tickets\/\d+/);

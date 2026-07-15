@@ -60,10 +60,10 @@ export function DbChangeCreateForm({
       <Field label="Title" error={errors.title}>
         <input className={inputClass} {...register("title")} />
       </Field>
-      <Field label="Description">
+      <Field label="Description (optional)">
         <textarea className={textareaClass} {...register("description")} />
       </Field>
-      <Field label="Priority" error={errors.priority}>
+      <Field label="How urgent is this?" error={errors.priority}>
         <select className={inputClass} {...register("priority")}>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -71,23 +71,23 @@ export function DbChangeCreateForm({
           <option value="critical">Critical</option>
         </select>
       </Field>
-      <Field label="Environment" error={errors.environment}>
+      <Field label="Which environment? (e.g. Production, Staging)" error={errors.environment}>
         <input className={inputClass} {...register("environment")} placeholder="e.g. Production" />
       </Field>
-      <Field label="Affected system" error={errors.affectedSystem}>
+      <Field label="Which system is affected?" error={errors.affectedSystem}>
         <input className={inputClass} {...register("affectedSystem")} />
       </Field>
       <Field label="Table name (optional)">
         <input className={inputClass} {...register("tableName")} />
       </Field>
-      <Field label="Change description" error={errors.changeDescription}>
+      <Field label="What needs to change?" error={errors.changeDescription}>
         <textarea className={textareaClass} {...register("changeDescription")} />
       </Field>
-      <Field label="Business justification" error={errors.businessJustification}>
+      <Field label="Why is this change needed?" error={errors.businessJustification}>
         <textarea className={textareaClass} {...register("businessJustification")} />
       </Field>
       {type === "mass_request" && (
-        <Field label="Estimated record count">
+        <Field label="How many records will this affect? (optional)">
           <input
             type="number"
             className={inputClass}
@@ -95,7 +95,7 @@ export function DbChangeCreateForm({
           />
         </Field>
       )}
-      <Field label="Requested completion date">
+      <Field label="Needed by (optional)">
         <input type="date" className={inputClass} {...register("requestedCompletionDate")} />
       </Field>
 

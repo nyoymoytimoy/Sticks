@@ -50,10 +50,10 @@ export function IncidentReportCreateForm() {
       <Field label="Title" error={errors.title}>
         <input className={inputClass} {...register("title")} />
       </Field>
-      <Field label="Description">
+      <Field label="Description (optional)">
         <textarea className={textareaClass} {...register("description")} />
       </Field>
-      <Field label="Priority" error={errors.priority}>
+      <Field label="How urgent is this?" error={errors.priority}>
         <select className={inputClass} {...register("priority")}>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -61,24 +61,24 @@ export function IncidentReportCreateForm() {
           <option value="critical">Critical</option>
         </select>
       </Field>
-      <Field label="Severity" error={errors.severity}>
+      <Field label="How severe is it?" error={errors.severity}>
         <select className={inputClass} {...register("severity")}>
-          <option value="sev1">Sev1 — Critical</option>
-          <option value="sev2">Sev2 — High</option>
-          <option value="sev3">Sev3 — Medium</option>
-          <option value="sev4">Sev4 — Low</option>
+          <option value="sev1">Sev1 — Critical, everyone affected</option>
+          <option value="sev2">Sev2 — High, many people affected</option>
+          <option value="sev3">Sev3 — Medium, some people affected</option>
+          <option value="sev4">Sev4 — Low, minor issue</option>
         </select>
       </Field>
-      <Field label="Systems affected" error={errors.systemsAffected}>
+      <Field label="Which systems are affected?" error={errors.systemsAffected}>
         <textarea className={textareaClass} {...register("systemsAffected")} />
       </Field>
-      <Field label="When did it occur?" error={errors.incidentOccurredAt}>
+      <Field label="When did it happen?" error={errors.incidentOccurredAt}>
         <input type="datetime-local" className={inputClass} {...register("incidentOccurredAt")} />
       </Field>
-      <Field label="Impact description" error={errors.impactDescription}>
+      <Field label="What's the impact?" error={errors.impactDescription}>
         <textarea className={textareaClass} {...register("impactDescription")} />
       </Field>
-      <Field label="Immediate action taken (optional)">
+      <Field label="What have you already tried? (optional)">
         <textarea className={textareaClass} {...register("immediateActionTaken")} />
       </Field>
 

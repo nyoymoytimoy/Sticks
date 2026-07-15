@@ -94,12 +94,12 @@ function LoginForm() {
 export default function LoginPage() {
   return (
     <div className="flex min-h-screen">
-      {/* Branding panel -- hidden below md, this is the "imitate the reference's
-          dark panel + decorative dot grid" half; colors stay ours (ink-900 +
-          gold/teal), not the reference's own navy/green. */}
-      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-ink-900 p-12 text-white md:flex">
+      {/* Branding panel -- hidden below md. Kept light (no dark background)
+          per user preference; the reference's "dark panel" structural idea
+          is reinterpreted here as a light cream panel with gold/teal accents. */}
+      <div className="relative hidden w-1/2 flex-col justify-between overflow-hidden bg-surface-secondary p-12 md:flex">
         <div
-          className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 opacity-20"
+          className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 opacity-30"
           style={{
             backgroundImage:
               "radial-gradient(circle, rgba(232,170,51,0.8) 1.5px, transparent 1.5px)",
@@ -111,22 +111,24 @@ export default function LoginPage() {
           style={{ background: "radial-gradient(circle, var(--color-teal), transparent 70%)" }}
         />
 
-        <span className="flex items-center gap-2 text-lg font-semibold tracking-tight">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-gold text-ink-900">
-            🎫
+        <div className="flex flex-col gap-0.5">
+          <span className="text-xl font-bold tracking-tight text-ink-900">
+            Sticks<span className="text-gold-dark">.</span>
           </span>
-          Sticks
-        </span>
+          <span className="text-xs font-semibold uppercase tracking-wider text-teal">
+            Ticketing
+          </span>
+        </div>
 
         <div className="flex flex-col gap-6">
-          <h2 className="max-w-sm text-3xl font-semibold leading-tight">
-            Internal <span className="text-gold">ticketing</span>, built for how Standard
+          <h2 className="max-w-sm text-3xl font-semibold leading-tight text-ink-900">
+            Internal <span className="text-gold-dark">ticketing</span>, built for how Standard
             Insurance actually works.
           </h2>
           <ul className="flex flex-col gap-4">
             {FEATURES.map((f) => (
-              <li key={f.label} className="flex items-center gap-3 text-sm text-white/80">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/10 text-gold">
+              <li key={f.label} className="flex items-center gap-3 text-sm text-ink-700">
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gold/15 text-gold-dark">
                   <f.icon className="h-4 w-4" />
                 </span>
                 {f.label}
@@ -135,7 +137,7 @@ export default function LoginPage() {
           </ul>
         </div>
 
-        <span className="text-xs text-white/40">© 2026 Standard Insurance</span>
+        <span className="text-xs text-ink-400">© 2026 Standard Insurance</span>
       </div>
 
       {/* Form panel */}

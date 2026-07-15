@@ -48,10 +48,10 @@ export function ServiceRequestCreateForm({ assignableUsers }: { assignableUsers:
       <Field label="Title" error={errors.title}>
         <input className={inputClass} {...register("title")} />
       </Field>
-      <Field label="Description">
+      <Field label="Description (optional)">
         <textarea className={textareaClass} {...register("description")} />
       </Field>
-      <Field label="Priority" error={errors.priority}>
+      <Field label="How urgent is this?" error={errors.priority}>
         <select className={inputClass} {...register("priority")}>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -59,13 +59,13 @@ export function ServiceRequestCreateForm({ assignableUsers }: { assignableUsers:
           <option value="critical">Critical</option>
         </select>
       </Field>
-      <Field label="Category" error={errors.category}>
+      <Field label="What type of service do you need?" error={errors.category}>
         <input className={inputClass} {...register("category")} placeholder="e.g. Access Request" />
       </Field>
-      <Field label="Requested completion date">
+      <Field label="Needed by (optional)">
         <input type="date" className={inputClass} {...register("requestedCompletionDate")} />
       </Field>
-      <Field label="Assign to" error={errors.assigneeUserId}>
+      <Field label="Who should handle this?" error={errors.assigneeUserId}>
         <select className={inputClass} {...register("assigneeUserId", { valueAsNumber: true })}>
           <option value="">Select an Associate or Admin…</option>
           {assignableUsers.map((u) => (

@@ -50,10 +50,10 @@ export function BcpCreateForm() {
       <Field label="Title" error={errors.title}>
         <input className={inputClass} {...register("title")} />
       </Field>
-      <Field label="Description">
+      <Field label="Description (optional)">
         <textarea className={textareaClass} {...register("description")} />
       </Field>
-      <Field label="Priority" error={errors.priority}>
+      <Field label="How urgent is this?" error={errors.priority}>
         <select className={inputClass} {...register("priority")}>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -61,19 +61,19 @@ export function BcpCreateForm() {
           <option value="critical">Critical</option>
         </select>
       </Field>
-      <Field label="IP / CIDR (optional)" error={errors.ipCidr}>
+      <Field label="IP address or range to whitelist (optional)" error={errors.ipCidr}>
         <input className={inputClass} {...register("ipCidr")} placeholder="e.g. 203.0.113.0/24" />
       </Field>
-      <Field label="URL / domain (optional)">
+      <Field label="Website or domain to whitelist (optional)">
         <input className={inputClass} {...register("urlDomain")} placeholder="e.g. vendor.example.com" />
       </Field>
       <Field label="Department" error={errors.department}>
         <input className={inputClass} {...register("department")} />
       </Field>
-      <Field label="Business reason" error={errors.businessReason}>
+      <Field label="Why do you need this whitelisted?" error={errors.businessReason}>
         <textarea className={textareaClass} {...register("businessReason")} />
       </Field>
-      <Field label="Expiry date (optional)">
+      <Field label="When should this expire? (optional)">
         <input type="date" className={inputClass} {...register("expiryDate")} />
       </Field>
 
