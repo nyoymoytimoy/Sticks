@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { baseTicketSchema, incidentReportDetailsSchema } from "backend/client";
 import { createTicketAction } from "@/app/actions/tickets";
-import { Field, inputClass, textareaClass } from "@/components/tickets/form-fields";
+import { Field, FormSection, inputClass, textareaClass } from "@/components/tickets/form-fields";
 import { Button } from "@/components/ui/button";
 
 const formSchema = baseTicketSchema.merge(incidentReportDetailsSchema);
@@ -46,45 +46,50 @@ export function IncidentReportCreateForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex max-w-xl flex-col gap-4">
-      <Field label="Title" error={errors.title}>
-        <input className={inputClass} {...register("title")} />
-      </Field>
-      <Field label="Description (optional)">
-        <textarea className={textareaClass} {...register("description")} />
-      </Field>
-      <Field label="How urgent is this?" error={errors.priority}>
-        <select className={inputClass} {...register("priority")}>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-          <option value="critical">Critical</option>
-        </select>
-      </Field>
-      <Field label="How severe is it?" error={errors.severity}>
-        <select className={inputClass} {...register("severity")}>
-          <option value="sev1">Sev1 — Critical, everyone affected</option>
-          <option value="sev2">Sev2 — High, many people affected</option>
-          <option value="sev3">Sev3 — Medium, some people affected</option>
-          <option value="sev4">Sev4 — Low, minor issue</option>
-        </select>
-      </Field>
-      <Field label="Which systems are affected?" error={errors.systemsAffected}>
-        <textarea className={textareaClass} {...register("systemsAffected")} />
-      </Field>
-      <Field label="When did it happen?" error={errors.incidentOccurredAt}>
-        <input type="datetime-local" className={inputClass} {...register("incidentOccurredAt")} />
-      </Field>
-      <Field label="What's the impact?" error={errors.impactDescription}>
-        <textarea className={textareaClass} {...register("impactDescription")} />
-      </Field>
-      <Field label="What have you already tried? (optional)">
-        <textarea className={textareaClass} {...register("immediateActionTaken")} />
-      </Field>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <FormSection title="Ticket Details">
+        <Field label="Title" error={errors.title} full>
+          <input className={inputClass} {...register("title")} />
+        </Field>
+        <Field label="Description (optional)" full>
+          <textarea className={textareaClass} {...register("description")} />
+        </Field>
+        <Field label="How urgent is this?" error={errors.priority}>
+          <select className={inputClass} {...register("priority")}>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+          </select>
+        </Field>
+        <Field label="When did it happen?" error={errors.incidentOccurredAt}>
+          <input type="datetime-local" className={inputClass} {...register("incidentOccurredAt")} />
+        </Field>
+      </FormSection>
+
+      <FormSection title="Incident Details">
+        <Field label="How severe is it?" error={errors.severity} full>
+          <select className={inputClass} {...register("severity")}>
+            <option value="sev1">Sev1 — Critical, everyone affected</option>
+            <option value="sev2">Sev2 — High, many people affected</option>
+            <option value="sev3">Sev3 — Medium, some people affected</option>
+            <option value="sev4">Sev4 — Low, minor issue</option>
+          </select>
+        </Field>
+        <Field label="Which systems are affected?" error={errors.systemsAffected} full>
+          <textarea className={textareaClass} {...register("systemsAffected")} />
+        </Field>
+        <Field label="What's the impact?" error={errors.impactDescription} full>
+          <textarea className={textareaClass} {...register("impactDescription")} />
+        </Field>
+        <Field label="What have you already tried? (optional)" full>
+          <textarea className={textareaClass} {...register("immediateActionTaken")} />
+        </Field>
+      </FormSection>
 
       {submitError && <p className="text-sm text-status-error">{submitError}</p>}
 
-      <Button type="submit" loading={isSubmitting} className="mt-2 w-fit">
+      <Button type="submit" loading={isSubmitting} className="w-fit">
         Report Incident
       </Button>
     </form>

@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth/authOptions";
 import { canAccessPage } from "backend";
 import { Sidebar, type NavSection } from "@/components/ui/sidebar";
-import { Topbar } from "@/components/ui/topbar";
 
 export default async function ProtectedLayout({
   children,
@@ -49,12 +48,9 @@ export default async function ProtectedLayout({
   ];
 
   return (
-    <div className="flex min-h-screen bg-surface-secondary">
-      <Sidebar sections={sections} />
-      <div className="flex flex-1 flex-col">
-        <Topbar userName={session.user.name} />
-        <main className="flex-1 bg-surface-secondary">{children}</main>
-      </div>
+    <div className="min-h-screen bg-surface-secondary">
+      <Sidebar sections={sections} userName={session.user.name} />
+      <main className="min-h-screen pl-64">{children}</main>
     </div>
   );
 }

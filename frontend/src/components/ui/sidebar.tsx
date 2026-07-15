@@ -1,9 +1,11 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { LayoutDashboard, Ticket, FileBarChart, Users, History, Plus } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LayoutDashboard, Ticket, FileBarChart, Users, History, Plus, Search } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SignOutButton } from "@/components/ui/sign-out-button";
 
 // Icons are referenced by name (a serializable string), not passed as
 // component references, because this file is a Client Component and the
@@ -30,12 +32,32 @@ export type NavSection = {
   items: NavItem[];
 };
 
-export function Sidebar({ sections }: { sections: NavSection[] }) {
+export function Sidebar({
+  sections,
+  userName,
+}: {
+  sections: NavSection[];
+  userName: string | null | undefined;
+}) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [query, setQuery] = useState("");
+
+  function handleSearch(e: React.FormEvent) {
+    e.preventDefault();
+    router.push(`/tickets?q=${encodeURIComponent(query)}`);
+  }
+
+  const initials = (userName ?? "?")
+    .split(" ")
+    .map((part) => part[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
 
   return (
-    <aside className="flex h-full w-64 shrink-0 flex-col gap-6 border-r border-border bg-surface-base px-4 py-6">
-      <div className="flex flex-col gap-0.5 border-b border-border px-2 pb-5">
+    <aside className="fixed inset-y-0 left-0 flex w-64 shrink-0 flex-col gap-5 border-r border-border bg-surface-base px-4 py-6">
+      <div className="flex flex-col gap-0.5 px-2">
         <span className="text-xl font-bold tracking-tight text-ink-900">
           Sticks<span className="text-gold-dark">.</span>
         </span>
@@ -44,7 +66,17 @@ export function Sidebar({ sections }: { sections: NavSection[] }) {
         </span>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-5">
+      <form onSubmit={handleSearch} className="relative">
+        <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+        <input
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          placeholder="Search tickets…"
+          className="h-10 w-full rounded-pill border border-border bg-surface-secondary pl-9 pr-3 text-sm outline-none focus:border-teal"
+        />
+      </form>
+
+      <nav className="flex flex-1 flex-col gap-5 overflow-y-auto">
         {sections.map((section, i) => (
           <div key={section.title ?? i} className="flex flex-col gap-1">
             {section.title && (
@@ -82,6 +114,19 @@ export function Sidebar({ sections }: { sections: NavSection[] }) {
         <Plus className="h-4 w-4" />
         New Ticket
       </Link>
+
+      <div className="flex items-center gap-2 border-t border-border pt-4">
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-teal text-sm font-semibold text-white">
+          {initials}
+        </span>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <span className="text-[10px] font-bold uppercase tracking-wide text-ink-400">
+            Signed in as
+          </span>
+          <span className="truncate text-sm font-medium text-ink-900">{userName}</span>
+        </div>
+        <SignOutButton />
+      </div>
     </aside>
   );
 }

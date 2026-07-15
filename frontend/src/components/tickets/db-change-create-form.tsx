@@ -7,7 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { baseTicketSchema, dbChangeDetailsSchema } from "backend/client";
 import { createTicketAction } from "@/app/actions/tickets";
-import { Field, inputClass, textareaClass } from "@/components/tickets/form-fields";
+import { Field, FormSection, inputClass, textareaClass } from "@/components/tickets/form-fields";
 import { Button } from "@/components/ui/button";
 
 const formSchema = baseTicketSchema.merge(dbChangeDetailsSchema);
@@ -56,52 +56,57 @@ export function DbChangeCreateForm({
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex max-w-xl flex-col gap-4">
-      <Field label="Title" error={errors.title}>
-        <input className={inputClass} {...register("title")} />
-      </Field>
-      <Field label="Description (optional)">
-        <textarea className={textareaClass} {...register("description")} />
-      </Field>
-      <Field label="How urgent is this?" error={errors.priority}>
-        <select className={inputClass} {...register("priority")}>
-          <option value="low">Low</option>
-          <option value="medium">Medium</option>
-          <option value="high">High</option>
-          <option value="critical">Critical</option>
-        </select>
-      </Field>
-      <Field label="Which environment? (e.g. Production, Staging)" error={errors.environment}>
-        <input className={inputClass} {...register("environment")} placeholder="e.g. Production" />
-      </Field>
-      <Field label="Which system is affected?" error={errors.affectedSystem}>
-        <input className={inputClass} {...register("affectedSystem")} />
-      </Field>
-      <Field label="Table name (optional)">
-        <input className={inputClass} {...register("tableName")} />
-      </Field>
-      <Field label="What needs to change?" error={errors.changeDescription}>
-        <textarea className={textareaClass} {...register("changeDescription")} />
-      </Field>
-      <Field label="Why is this change needed?" error={errors.businessJustification}>
-        <textarea className={textareaClass} {...register("businessJustification")} />
-      </Field>
-      {type === "mass_request" && (
-        <Field label="How many records will this affect? (optional)">
-          <input
-            type="number"
-            className={inputClass}
-            {...register("recordCountEstimate", { valueAsNumber: true })}
-          />
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+      <FormSection title="Ticket Details">
+        <Field label="Title" error={errors.title} full>
+          <input className={inputClass} {...register("title")} />
         </Field>
-      )}
-      <Field label="Needed by (optional)">
-        <input type="date" className={inputClass} {...register("requestedCompletionDate")} />
-      </Field>
+        <Field label="Description (optional)" full>
+          <textarea className={textareaClass} {...register("description")} />
+        </Field>
+        <Field label="How urgent is this?" error={errors.priority}>
+          <select className={inputClass} {...register("priority")}>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+            <option value="critical">Critical</option>
+          </select>
+        </Field>
+        <Field label="Needed by (optional)">
+          <input type="date" className={inputClass} {...register("requestedCompletionDate")} />
+        </Field>
+      </FormSection>
+
+      <FormSection title="Change Details">
+        <Field label="Which environment? (e.g. Production, Staging)" error={errors.environment}>
+          <input className={inputClass} {...register("environment")} placeholder="e.g. Production" />
+        </Field>
+        <Field label="Which system is affected?" error={errors.affectedSystem}>
+          <input className={inputClass} {...register("affectedSystem")} />
+        </Field>
+        <Field label="Table name (optional)" full={type !== "mass_request"}>
+          <input className={inputClass} {...register("tableName")} />
+        </Field>
+        {type === "mass_request" && (
+          <Field label="How many records will this affect? (optional)">
+            <input
+              type="number"
+              className={inputClass}
+              {...register("recordCountEstimate", { valueAsNumber: true })}
+            />
+          </Field>
+        )}
+        <Field label="What needs to change?" error={errors.changeDescription} full>
+          <textarea className={textareaClass} {...register("changeDescription")} />
+        </Field>
+        <Field label="Why is this change needed?" error={errors.businessJustification} full>
+          <textarea className={textareaClass} {...register("businessJustification")} />
+        </Field>
+      </FormSection>
 
       {submitError && <p className="text-sm text-status-error">{submitError}</p>}
 
-      <Button type="submit" loading={isSubmitting} className="mt-2 w-fit">
+      <Button type="submit" loading={isSubmitting} className="w-fit">
         Submit for Approval
       </Button>
     </form>

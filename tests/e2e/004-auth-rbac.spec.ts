@@ -24,7 +24,9 @@ test.describe("auth & RBAC", () => {
     await page.getByRole("button", { name: "Sign in" }).click();
 
     await expect(page).toHaveURL(/\/dashboard/);
-    await expect(page.getByText("Signed in as")).toContainText("Leiva Morente");
+    const sidebar = page.getByRole("complementary");
+    await expect(sidebar.getByText("Signed in as")).toBeVisible();
+    await expect(sidebar.getByText("Leiva Morente")).toBeVisible();
     // Approver role -> Reports nav item should be visible (reports is
     // approver/admin-only per canAccessPage).
     await expect(page.getByRole("link", { name: "Reports" })).toBeVisible();

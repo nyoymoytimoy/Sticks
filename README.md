@@ -53,17 +53,18 @@ canonical roadmap this project follows is:
 6. Ticket core CRUD
 7. UI overhaul (visual redesign, same gold/teal token set, modernized login)
 8. UI adjustments round 2 (no dark backgrounds, plain-language field labels)
-9. Workflow — Database Fix Request
-10. Workflow — Mass Request
-11. Workflow — BCP Whitelisting
-12. Workflow — Incident Report
-13. Workflow — Service Request
-14. Comments, watchers & attachments
-15. Approver delegation & escalation
-16. Notifications
-17. Dashboard & reporting
-18. Reports export
-19. Cross-cutting Playwright e2e
+9. UI adjustments round 3 (sidebar absorbs the top bar, card-based forms)
+10. Workflow — Database Fix Request
+11. Workflow — Mass Request
+12. Workflow — BCP Whitelisting
+13. Workflow — Incident Report
+14. Workflow — Service Request
+15. Comments, watchers & attachments
+16. Approver delegation & escalation
+17. Notifications
+18. Dashboard & reporting
+19. Reports export
+20. Cross-cutting Playwright e2e
 
 ## Testing
 
