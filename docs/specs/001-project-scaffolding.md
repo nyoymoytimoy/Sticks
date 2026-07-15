@@ -3,6 +3,12 @@
 **Status**: Implemented
 **Date**: 2026-07-15
 
+> **Note**: paths below (`src/...`) reflect this commit's layout at the time.
+> A later restructuring moved the whole Next.js project into `frontend/` and
+> split backend-only code into a sibling `backend/` workspace package — see
+> [999-monorepo-restructure.md](./999-monorepo-restructure.md). Read `src/`
+> below as `frontend/src/`.
+
 ## Problem / Context
 
 Sticks is a brand-new internal ticketing system for Standard Insurance (see the

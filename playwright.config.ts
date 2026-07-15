@@ -14,7 +14,7 @@ export default defineConfig({
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
   ],
   webServer: {
-    command: "npm run dev -- --port 3210",
+    command: "npm run dev --workspace frontend -- --port 3210",
     url: "http://localhost:3210",
     reuseExistingServer: !process.env.CI,
   },

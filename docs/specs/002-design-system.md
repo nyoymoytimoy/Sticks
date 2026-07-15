@@ -3,6 +3,11 @@
 **Status**: Implemented
 **Date**: 2026-07-15
 
+> **Note**: paths below (`src/...`) reflect this commit's layout at the time.
+> A later restructuring moved the whole Next.js project into `frontend/` —
+> see [999-monorepo-restructure.md](./999-monorepo-restructure.md). Read
+> `src/` below as `frontend/src/`.
+
 ## Problem / Context
 
 Every later page (Dashboard, Tickets, Reports, Admin) needs a consistent set

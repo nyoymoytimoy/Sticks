@@ -19,16 +19,25 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Project structure
 
-- `src/app` — routes (App Router)
-- `src/components/{ui,tickets,dashboard,reports}` — shared design system and
-  feature components
-- `src/lib/{db,auth,workflows,notifications,audit,validation}` — data access,
-  auth/RBAC, the workflow state machine, and supporting logic
-- `migrations/` — hand-written SQL migrations (`pg` + `node-pg-migrate`, no
-  ORM)
+This is an npm-workspaces monorepo — `frontend/` is the Next.js app (App
+Router requires its `app/` folder to live at a project root or under a `src/`
+folder within it, so the whole Next.js project lives inside `frontend/`);
+`backend/` is a sibling workspace package holding everything that isn't
+Next.js-coupled, imported into `frontend` as the `backend` dependency.
+
+- `frontend/src/app` — routes (App Router)
+- `frontend/src/components/{ui,tickets,dashboard,reports}` — shared design
+  system and feature components
+- `frontend/src/lib/auth` — next-auth wiring (must live inside the Next.js
+  app; the framework's auth routes/proxy run in its own process)
+- `backend/src/{db,workflows,notifications,audit,validation}` — data access,
+  the workflow state machine, and supporting business logic, framework-agnostic
+- `backend/migrations/` — hand-written SQL migrations (`pg` +
+  `node-pg-migrate`, no ORM)
 - `docs/specs/` — one granular spec per feature commit, numbered in
   dependency order (see below)
-- `tests/e2e/` — Playwright, one spec file per feature commit
+- `tests/e2e/` — Playwright, one spec file per feature commit, run against
+  the built `frontend` app
 
 ## Feature roadmap (docs/specs, in dependency order)
 
