@@ -3,6 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./client": "./src/client.ts"
+  },
   "scripts": {
     "migrate:up": "node-pg-migrate up --envPath ../frontend/.env.local",
     "migrate:down": "node-pg-migrate down --envPath ../frontend/.env.local",
@@ -11,7 +15,8 @@
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
-    "pg": "^8.22.0"
+    "pg": "^8.22.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

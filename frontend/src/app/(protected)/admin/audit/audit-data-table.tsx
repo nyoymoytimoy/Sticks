@@ -1,7 +1,7 @@
 "use client";
 
 import { DataTable, type Column } from "@/components/ui/data-table";
-import type { AuditLogRow } from "backend";
+import type { AuditLogRow } from "backend/client";
 
 // A thin client wrapper around DataTable: column definitions include JSX
 // render functions, which (like the sidebar icon bug in spec 004) cannot be

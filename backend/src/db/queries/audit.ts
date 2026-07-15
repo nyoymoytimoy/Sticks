@@ -1,16 +1,7 @@
 import { pool } from "../pool";
+import type { AuditLogRow } from "../../types";
 
-export type AuditLogRow = {
-  id: number;
-  ticketId: number;
-  ticketNumber: string;
-  eventType: string;
-  actorName: string | null;
-  fromValue: string | null;
-  toValue: string | null;
-  note: string | null;
-  occurredAt: string;
-};
+export type { AuditLogRow };
 
 export async function getRecentAuditEvents(limit = 100): Promise<AuditLogRow[]> {
   const result = await pool.query(
