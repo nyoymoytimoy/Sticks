@@ -1,4 +1,4 @@
--- Up
+-- Up Migration
 
 -- next-auth v4 Postgres adapter schema (@next-auth/pg-adapter), extended
 -- with app-specific columns directly on `users` rather than a parallel app
@@ -60,7 +60,7 @@ CREATE TABLE user_roles (
   PRIMARY KEY (user_id, role_id)
 );
 
--- Down
+-- Down Migration
 
 DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS roles;

@@ -1,4 +1,4 @@
--- Up
+-- Up Migration
 
 CREATE TABLE ticket_types (
   id SERIAL PRIMARY KEY,
@@ -73,7 +73,7 @@ CREATE TRIGGER trg_tickets_updated_at
   BEFORE UPDATE ON tickets
   FOR EACH ROW EXECUTE FUNCTION set_updated_at();
 
--- Down
+-- Down Migration
 
 DROP TRIGGER IF EXISTS trg_tickets_updated_at ON tickets;
 DROP FUNCTION IF EXISTS set_updated_at();

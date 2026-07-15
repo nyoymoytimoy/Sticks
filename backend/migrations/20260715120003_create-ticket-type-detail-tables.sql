@@ -1,4 +1,4 @@
--- Up
+-- Up Migration
 
 -- Shared by BOTH database_fix_request and mass_request: the two types have
 -- identical fields; only the auto-tagging-on-approval behavior differs
@@ -39,7 +39,7 @@ CREATE TABLE ticket_service_request_details (
   requested_completion_date DATE
 );
 
--- Down
+-- Down Migration
 
 DROP TABLE IF EXISTS ticket_service_request_details;
 DROP TABLE IF EXISTS ticket_incident_report_details;
