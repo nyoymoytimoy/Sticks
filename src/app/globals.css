@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens mirrored from the Audit V4 project (.streamlit/config.toml +
+ * its custom CSS block) so Sticks shares the same visual identity.
+ * Tailwind v4's @theme both generates utility classes (bg-gold, text-teal, ...)
+ * and emits these as real CSS variables, so no separate token-mirroring step
+ * is needed.
+ */
+@theme {
+  --font-sans: var(--font-inter);
+  --font-mono: "Menlo", "Consolas", ui-monospace, monospace;
+
+  --color-gold: #e8aa33;
+  --color-gold-dark: #a6741f;
+  --color-gold-glow: rgba(232, 170, 51, 0.35);
+
+  --color-teal: #1c6b73;
+  --color-teal-hover: #278691;
+
+  --color-surface-base: #fbfaf7;
+  --color-surface-secondary: #f4f1ea;
+  --color-surface-stat: #eef4f2;
+
+  --color-ink-900: #1e1b16;
+  --color-ink-700: #2e2a23;
+  --color-ink-500: #6b6459;
+  --color-ink-400: #94897a;
+  --color-ink-300: #948d7c;
+  --color-ink-250: #8a8172;
+
+  --color-border: #e5dfd2;
+  --color-border-soft: #d8e0dc;
+  --color-border-strong: #d6cdb8;
+
+  --color-status-success: #047857;
+  --color-status-error: #b91c1c;
+  --color-status-error-muted: #963f3f;
+  --color-status-error-soft: #b45959;
+  --color-status-warning: #8a5f14;
+
+  --radius-pill: 999px;
+}
+
+:root {
+  --background: var(--color-surface-base);
+  --foreground: var(--color-ink-700);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
