@@ -99,7 +99,7 @@ export async function createTicket<T extends TicketTypeCode>(input: {
     await client.query("BEGIN");
 
     const typeRow = await client.query(
-      "SELECT id FROM ticket_types WHERE code = $1",
+      "SELECT id, has_approval_step FROM ticket_types WHERE code = $1",
       [input.type]
     );
     if (typeRow.rows.length === 0) {
@@ -120,9 +120,24 @@ export async function createTicket<T extends TicketTypeCode>(input: {
         ? (input.details as TicketDetailsFor<"service_request">).assigneeUserId
         : null;
 
+    // Types with an approval step (Database Fix Request, Mass Request) get
+    // their exclusive approver resolved at creation time -- data-driven via
+    // workflow_assignments, not a hardcoded name, so this works for any
+    // current or future type with has_approval_step=true.
+    let approverId: number | null = null;
+    if (typeRow.rows[0].has_approval_step) {
+      const approverRow = await client.query(
+        `SELECT user_id FROM workflow_assignments
+          WHERE ticket_type_id = $1 AND workflow_step = 'approver' AND is_exclusive = true
+          LIMIT 1`,
+        [ticketTypeId]
+      );
+      approverId = approverRow.rows[0]?.user_id ?? null;
+    }
+
     const ticketResult = await client.query(
-      `INSERT INTO tickets (ticket_type_id, status_id, title, description, requestor_id, priority, current_assignee_id)
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
+      `INSERT INTO tickets (ticket_type_id, status_id, title, description, requestor_id, priority, current_assignee_id, approver_id)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
        RETURNING id, ticket_number`,
       [
         ticketTypeId,
@@ -132,6 +147,7 @@ export async function createTicket<T extends TicketTypeCode>(input: {
         input.requestorId,
         input.base.priority,
         currentAssigneeId,
+        approverId,
       ]
     );
     const ticket = ticketResult.rows[0];
@@ -149,6 +165,23 @@ export async function createTicket<T extends TicketTypeCode>(input: {
       },
       client
     );
+
+    // Types with an approval step notify their exclusive approver the
+    // moment a ticket lands in their queue (the plan's "new -> pending_approval,
+    // notify: exclusive approver"). Writes to the queue only -- actual
+    // sending is spec 016's job.
+    if (approverId) {
+      await client.query(
+        `INSERT INTO notification_events (ticket_id, recipient_user_id, event_type, subject, payload)
+         VALUES ($1, $2, 'submitted', $3, $4)`,
+        [
+          ticket.id,
+          approverId,
+          `New ${input.type.replace(/_/g, " ")} awaiting your approval: ${ticket.ticket_number}`,
+          JSON.stringify({ ticketNumber: ticket.ticket_number }),
+        ]
+      );
+    }
 
     await client.query("COMMIT");
     return { id: ticket.id, ticketNumber: ticket.ticket_number };

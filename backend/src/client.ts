@@ -19,4 +19,4 @@ export {
 export type { TicketTypeCode, TicketDetailsFor } from "./validation/ticketSchemas";
 export { hasRole, canAccessPage } from "./rbac/can";
 export type { RoleCode } from "./rbac/can";
-export type { AssignableUser, TicketListRow, TicketDetail, AuditLogRow } from "./types";
+export type { AssignableUser, TicketListRow, TicketDetail, AuditLogRow, AvailableAction } from "./types";

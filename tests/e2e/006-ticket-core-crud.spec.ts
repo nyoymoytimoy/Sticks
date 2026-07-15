@@ -22,7 +22,8 @@ test.describe("ticket core CRUD", () => {
       await testPool.query("DELETE FROM ticket_service_request_details WHERE ticket_id = $1", [createdTicketId]);
       await testPool.query("DELETE FROM tickets WHERE id = $1", [createdTicketId]);
     }
-    await testPool.end();
+    // Deliberately not calling testPool.end() -- see 005-audit-trail.spec.ts's
+    // afterAll for why (shared singleton pool, multiple spec files per worker).
   });
 
   test("requestor creates a Service Request end-to-end and sees it in Tickets + detail + audit", async ({ page }) => {

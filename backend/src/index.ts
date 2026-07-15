@@ -21,3 +21,6 @@ export {
   stripEmptyStrings,
 } from "./validation/ticketSchemas";
 export type { TicketTypeCode, TicketDetailsFor } from "./validation/ticketSchemas";
+export { applyTicketTransition, getAvailableActions } from "./workflows/stateMachine";
+export type { ApplyTransitionResult, AvailableAction } from "./workflows/stateMachine";
+export { DB_FIX_REQUEST_ACTIONS } from "./workflows/dbFixRequest";

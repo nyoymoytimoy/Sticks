@@ -1,11 +1,12 @@
 import { getServerSession } from "next-auth";
 import { notFound, redirect } from "next/navigation";
 import { authOptions } from "@/lib/auth/authOptions";
-import { getTicketById, getAuditEventsForTicket } from "backend";
+import { getTicketById, getAuditEventsForTicket, getAvailableActions } from "backend";
 import { PageHeader } from "@/components/ui/page-header";
 import { StatusBadge } from "@/components/ui/status-badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { AuditTimeline } from "@/components/ui/audit-timeline";
+import { TicketActions } from "@/components/tickets/ticket-actions";
 
 export default async function TicketDetailPage({
   params,
@@ -26,6 +27,11 @@ export default async function TicketDetailPage({
   }
 
   const auditEvents = await getAuditEventsForTicket(ticket.id);
+  const availableActions = await getAvailableActions(
+    ticket.id,
+    Number(session!.user.id),
+    session!.user.roles
+  );
 
   return (
     <div className="flex flex-col gap-6 p-8">
@@ -36,6 +42,8 @@ export default async function TicketDetailPage({
         subtitle={ticket.title}
         actions={<StatusBadge status={ticket.statusCode} />}
       />
+
+      <TicketActions ticketId={ticket.id} actions={availableActions} />
 
       <div className="rounded-xl border border-border bg-surface-base p-5 shadow-sm">
         <Tabs defaultValue="details">

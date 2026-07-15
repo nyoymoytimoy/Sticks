@@ -48,7 +48,10 @@ test.describe("audit trail", () => {
   test.afterAll(async () => {
     await testPool.query("DELETE FROM ticket_audit_log WHERE ticket_id = $1", [seededTicketId]);
     await testPool.query("DELETE FROM tickets WHERE id = $1", [seededTicketId]);
-    await testPool.end();
+    // Deliberately not calling testPool.end() -- it's a shared module-level
+    // singleton (see tests/fixtures/db.ts), and multiple spec files can
+    // share the same worker process. Whichever file's afterAll ran first
+    // would close the pool out from under every other file still using it.
   });
 
   test("admin (Rudy) sees the seeded audit event in the global audit view", async ({ page }) => {
@@ -61,10 +64,15 @@ test.describe("audit trail", () => {
     await page.getByRole("link", { name: "Audit" }).click();
     await expect(page).toHaveURL(/\/admin\/audit/);
 
-    await expect(page.getByText(seededTicketNumber)).toBeVisible();
-    await expect(page.getByText("status change")).toBeVisible();
-    await expect(page.getByText("new → in_progress")).toBeVisible();
-    await expect(page.getByText("e2e fixture audit note")).toBeVisible();
+    // Scoped to this test's own seeded row: the admin audit view is global
+    // across every ticket, and other tests running concurrently (e.g. spec
+    // 010's workflow tests) also write "status_change" audit events for
+    // their own tickets -- a bare page-wide text search collides with those.
+    const row = page.getByRole("row", { name: new RegExp(seededTicketNumber) });
+    await expect(row).toBeVisible();
+    await expect(row.getByText("status change")).toBeVisible();
+    await expect(row.getByText("new → in_progress")).toBeVisible();
+    await expect(row.getByText("e2e fixture audit note")).toBeVisible();
   });
 
   test("filtering to a non-matching search shows the empty state", async ({ page }) => {

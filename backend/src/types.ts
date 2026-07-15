@@ -35,3 +35,9 @@ export type AuditLogRow = {
   note: string | null;
   occurredAt: string;
 };
+
+export type AvailableAction = {
+  actionCode: string;
+  toStatusLabel: string;
+  requiresNote: boolean;
+};
