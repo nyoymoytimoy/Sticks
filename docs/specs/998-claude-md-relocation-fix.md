@@ -21,7 +21,7 @@ into `frontend/`. That was wrong for two reasons, both caught by the user
 noticing the file's location while reviewing spec 999's changes:
 
 1. Claude Code only reads `CLAUDE.md` from a session's working-directory
-   root. A session opened at the repo root (`ticked/`, the default) never
+   root. A session opened at the repo root (`sticks/`, the default) never
    saw this file at all — only a session opened specifically inside
    `frontend/` would.
 2. `AGENTS.md`'s own file reference, `node_modules/next/dist/docs/`, became
